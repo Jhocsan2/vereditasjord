@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 828px;
+            height: 571px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Veredas_clip_0.js"></script>
+        <script src="data/Drenaje_Sencillo_1.js"></script>
+        <script src="data/Drenaje_Doble_2.js"></script>
+        <script src="data/Vias_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[6.672531423242288,-73.15420526678065],[6.755094263485922,-73.03435130185755]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        document.querySelector(".leaflet-popup-pane").addEventListener("load", function(event) {
+          var tagName = event.target.tagName,
+            popup = map._popup;
+          // Also check if flag is already set.
+          if (tagName === "IMG" && popup && !popup._updated) {
+            popup._updated = true; // Set flag to prevent looping.
+            popup.update();
+          }
+        }, true);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_Veredas_clip_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NOMBRE_VER</strong><br />' + (feature.properties['NOMBRE_VER'] !== null ? autolinker.link(feature.properties['NOMBRE_VER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Área_Km</strong><br />' + (feature.properties['Área_Km'] !== null ? autolinker.link(feature.properties['Área_Km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Veredas_clip_0_0(feature) {
+            switch(String(feature.properties['NOMBRE_VER'])) {
+                default:
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,134,110,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'EL GUASIMO':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(186,201,167,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'EL POTRERO':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,173,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'EL POZO':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,133,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'HATO VIEJO':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(36,171,25,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MORROS':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(185,200,196,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'POMARROSO':
+                    return {
+                pane: 'pane_Veredas_clip_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(56,170,140,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Veredas_clip_0');
+        map.getPane('pane_Veredas_clip_0').style.zIndex = 400;
+        map.getPane('pane_Veredas_clip_0').style['mix-blend-mode'] = 'normal';
+        var layer_Veredas_clip_0 = new L.geoJson(json_Veredas_clip_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Veredas_clip_0',
+            layerName: 'layer_Veredas_clip_0',
+            pane: 'pane_Veredas_clip_0',
+            onEachFeature: pop_Veredas_clip_0,
+            style: style_Veredas_clip_0_0,
+        });
+        bounds_group.addLayer(layer_Veredas_clip_0);
+        map.addLayer(layer_Veredas_clip_0);
+        function pop_Drenaje_Sencillo_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMBRE_GEO'] !== null ? autolinker.link(feature.properties['NOMBRE_GEO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Drenaje_Sencillo_1_0() {
+            return {
+                pane: 'pane_Drenaje_Sencillo_1',
+                opacity: 1,
+                color: 'rgba(56,160,225,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Drenaje_Sencillo_1');
+        map.getPane('pane_Drenaje_Sencillo_1').style.zIndex = 401;
+        map.getPane('pane_Drenaje_Sencillo_1').style['mix-blend-mode'] = 'normal';
+        var layer_Drenaje_Sencillo_1 = new L.geoJson(json_Drenaje_Sencillo_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Drenaje_Sencillo_1',
+            layerName: 'layer_Drenaje_Sencillo_1',
+            pane: 'pane_Drenaje_Sencillo_1',
+            onEachFeature: pop_Drenaje_Sencillo_1,
+            style: style_Drenaje_Sencillo_1_0,
+        });
+        bounds_group.addLayer(layer_Drenaje_Sencillo_1);
+        map.addLayer(layer_Drenaje_Sencillo_1);
+        function pop_Drenaje_Doble_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NOMBRE_GEO</strong><br />' + (feature.properties['NOMBRE_GEO'] !== null ? autolinker.link(feature.properties['NOMBRE_GEO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="VIGENCIA"colspan="2"><strong>VIGENCIA</strong><br />' + (feature.properties['VIGENCIA'] !== null ? autolinker.link(feature.properties['VIGENCIA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="RuleID"colspan="2"><strong>RuleID</strong><br />' + (feature.properties['RuleID'] !== null ? autolinker.link(feature.properties['RuleID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Drenaje_Doble_2_0() {
+            return {
+                pane: 'pane_Drenaje_Doble_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(9,115,190,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Drenaje_Doble_2');
+        map.getPane('pane_Drenaje_Doble_2').style.zIndex = 402;
+        map.getPane('pane_Drenaje_Doble_2').style['mix-blend-mode'] = 'normal';
+        var layer_Drenaje_Doble_2 = new L.geoJson(json_Drenaje_Doble_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Drenaje_Doble_2',
+            layerName: 'layer_Drenaje_Doble_2',
+            pane: 'pane_Drenaje_Doble_2',
+            onEachFeature: pop_Drenaje_Doble_2,
+            style: style_Drenaje_Doble_2_0,
+        });
+        bounds_group.addLayer(layer_Drenaje_Doble_2);
+        map.addLayer(layer_Drenaje_Doble_2);
+        function pop_Vias_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPO_VIA'] !== null ? autolinker.link(feature.properties['TIPO_VIA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Vias_3_0(feature) {
+            switch(String(feature.properties['TIPO_VIA'])) {
+                case '7':
+                    return {
+                pane: 'pane_Vias_3',
+                opacity: 1,
+                color: 'rgba(56,42,40,0.94)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_Vias_3',
+                opacity: 1,
+                color: 'rgba(208,78,240,0.94)',
+                dashArray: '4.0,2.0',
+                lineCap: 'square',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_Vias_3',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Vias_3',
+                opacity: 1,
+                color: 'rgba(64,203,85,0.94)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Vias_3');
+        map.getPane('pane_Vias_3').style.zIndex = 403;
+        map.getPane('pane_Vias_3').style['mix-blend-mode'] = 'normal';
+        var layer_Vias_3 = new L.geoJson(json_Vias_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Vias_3',
+            layerName: 'layer_Vias_3',
+            pane: 'pane_Vias_3',
+            onEachFeature: pop_Vias_3,
+            style: style_Vias_3_0,
+        });
+        bounds_group.addLayer(layer_Vias_3);
+        map.addLayer(layer_Vias_3);
+        var baseMaps = {};
+        var overlaysTree = [
+            {label: 'Vias<br /><table><tr><td style="text-align: center;"><img src="legend/Vias_3_Senderos0.png" /></td><td>Senderos</td></tr><tr><td style="text-align: center;"><img src="legend/Vias_3_PlacaHuella1.png" /></td><td>Placa Huella</td></tr><tr><td style="text-align: center;"><img src="legend/Vias_3_Carreteablesinpavimento2.png" /></td><td>Carreteable sin pavimento</td></tr><tr><td style="text-align: center;"><img src="legend/Vias_3_3.png" /></td><td></td></tr></table>', layer: layer_Vias_3},
+            {label: '<img src="legend/Drenaje_Doble_2.png" /> Drenaje_Doble', layer: layer_Drenaje_Doble_2},
+            {label: '<img src="legend/Drenaje_Sencillo_1.png" /> Drenaje_Sencillo', layer: layer_Drenaje_Sencillo_1},
+            {label: 'Veredas_clip<br /><table><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_ELGUASIMO1.png" /></td><td>EL GUASIMO</td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_ELPOTRERO2.png" /></td><td>EL POTRERO</td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_ELPOZO3.png" /></td><td>EL POZO</td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_HATOVIEJO4.png" /></td><td>HATO VIEJO</td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_MORROS5.png" /></td><td>MORROS</td></tr><tr><td style="text-align: center;"><img src="legend/Veredas_clip_0_POMARROSO6.png" /></td><td>POMARROSO</td></tr></table>', layer: layer_Veredas_clip_0},]
+        var lay = L.control.layers.tree(null, overlaysTree,{
+            //namedToggle: true,
+            //selectorBack: false,
+            //closedSymbol: '&#8862; &#x1f5c0;',
+            //openedSymbol: '&#8863; &#x1f5c1;',
+            //collapseAll: 'Collapse all',
+            //expandAll: 'Expand all',
+            collapsed: true,
+        });
+        lay.addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Veredas_clip_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOMBRE_VER'] !== null?String('<div style="color: #1f78b4; font-size: 10pt; font-family: \'MS Reference Sans Serif\', sans-serif;">' + layer.feature.properties['NOMBRE_VER']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Veredas_clip_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Vias_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['TIPO_VIA'] !== null?String('<div style="color: #322323; font-size: 10pt; font-family: \'Monotype Corsiva\', sans-serif;">' + layer.feature.properties['TIPO_VIA']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Vias_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Veredas_clip_0,layer_Vias_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Veredas_clip_0,layer_Vias_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Veredas_clip_0,layer_Vias_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Veredas_clip_0,layer_Vias_3]);
+        });
+        </script>
+    </body>
+</html>
